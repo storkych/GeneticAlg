@@ -6,6 +6,8 @@ namespace GeneticAlg
 {
     class Program
     {
+        static int NumQueens;
+
         static void GenerationCallback(int generation, string bestIndividual, string target)
         {
             Console.WriteLine($"Generation {generation}: Best fit - {bestIndividual.Length}, Best individual - {bestIndividual}");
@@ -15,8 +17,39 @@ namespace GeneticAlg
         {
             Console.Clear();
             Console.WriteLine($"Вы выбрали: {index + 1}");
-
-            if (index == 2)
+            if (index == 0)
+            {
+                
+            }
+            else if (index == 1)
+            {
+                while (true)
+                {
+                    Console.WriteLine("Введите число королев: ");
+                    if (int.TryParse(Console.ReadLine(), out NumQueens) && (NumQueens > 0))
+                    {
+                        Console.WriteLine("Запуск алгоритма");
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Ошибка. Некорректное значение");
+                    }
+                }
+                //Время работы программы.
+                //Stopwatch stopWatch = new();
+                //stopWatch.Start();
+                //Вызываем метод geneticAlg() для выполнения генетического алгоритма.
+                QueenBoards solution = QueenGenAlg.QueenGeneticAlg(NumQueens);
+                //stopWatch.Stop();
+                //TimeSpan ts = stopWatch.Elapsed;
+                //Console.WriteLine($"Время работы алгоритма : {ts}");
+                //Выводит решение на экран.
+                Console.WriteLine(solution.ToString() + "\n");
+                solution.PrintBoard();
+                Console.ReadLine();
+            }
+            else if (index == 2)
             {
                 string target = "HelloWorld";
                 int populationSize = 100;
@@ -24,6 +57,10 @@ namespace GeneticAlg
 
                 StringRebuider geneticAlgorithm = new StringRebuider(GenerationCallback);
                 geneticAlgorithm.RunGeneticAlgorithm(target, populationSize, mutationRate);
+            }
+            else if (index == 3)
+            {
+                
             }
 
             Console.WriteLine("Нажмите любую клавишу для продолжения...");
@@ -34,7 +71,7 @@ namespace GeneticAlg
         {
             Console.CursorVisible = false;
 
-            string[] menuItems = { "Пункт 1", "Пункт 2", "Воссоздание строки", "Выход" };
+            string[] menuItems = { "Задача о рюкзаке", "Расстановка ферзей", "Воссоздание строки", "Задача коммивояжера" };
             int selectedItemIndex = 0;
 
             while (true)

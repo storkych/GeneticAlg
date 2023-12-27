@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\GeneticAlg\\GeneticAlg\\GeneticAlg\\GeneticAlg.csproj": {}
+    "E:\\GeneticAlg\\GeneticAlg\\GeneticAlg.csproj": {}
   },
   "projects": {
-    "E:\\GeneticAlg\\GeneticAlg\\GeneticAlg\\GeneticAlg.csproj": {
+    "E:\\GeneticAlg\\GeneticAlg\\GeneticAlg.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\GeneticAlg\\GeneticAlg\\GeneticAlg\\GeneticAlg.csproj",
+        "projectUniqueName": "E:\\GeneticAlg\\GeneticAlg\\GeneticAlg.csproj",
         "projectName": "GeneticAlg",
-        "projectPath": "E:\\GeneticAlg\\GeneticAlg\\GeneticAlg\\GeneticAlg.csproj",
+        "projectPath": "E:\\GeneticAlg\\GeneticAlg\\GeneticAlg.csproj",
         "packagesPath": "C:\\Users\\storkych\\.nuget\\packages\\",
-        "outputPath": "E:\\GeneticAlg\\GeneticAlg\\GeneticAlg\\obj\\",
+        "outputPath": "E:\\GeneticAlg\\GeneticAlg\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\storkych\\AppData\\Roaming\\NuGet\\NuGet.Config",
