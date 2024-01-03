@@ -95,8 +95,8 @@ namespace GeneticAlg
             {
                 while (true)
                 {
-                    Console.WriteLine("Введите число королев: ");
-                    if (int.TryParse(Console.ReadLine(), out NumQueens) && (NumQueens > 0))
+                    Console.WriteLine("Введите число королев(не менее 4): ");
+                    if (int.TryParse(Console.ReadLine(), out NumQueens) && (NumQueens > 3))
                     {
                         Console.WriteLine("Запуск алгоритма");
                         break;
