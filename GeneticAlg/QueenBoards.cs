@@ -120,7 +120,8 @@ namespace GeneticAlg
         /// <summary>
         /// Печать решения.
         /// </summary>
-        public void PrintBoard()
+        /// <returns>Доска в виде матрицы.</returns>
+        public string PrintBoard()
         {
             string str = string.Empty;
             for (int i = 0; i < Board.Length; i++)
@@ -138,7 +139,7 @@ namespace GeneticAlg
                 }
                 str += "\n\n";
             }
-            Console.Write(str);
+            return str;
         }
     }
 }

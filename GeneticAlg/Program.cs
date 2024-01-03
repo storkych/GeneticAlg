@@ -116,7 +116,7 @@ namespace GeneticAlg
                 //Console.WriteLine($"Время работы алгоритма : {ts}");
                 //Выводит решение на экран.
                 Console.WriteLine(solution.ToString() + "\n");
-                solution.PrintBoard();
+                Console.WriteLine(solution.PrintBoard());
                 Console.ReadLine();
             }
             else if (index == 2)
