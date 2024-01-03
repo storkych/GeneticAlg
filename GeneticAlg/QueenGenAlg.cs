@@ -165,6 +165,7 @@ namespace GeneticAlg
                     tempPopulation[i] = child;
                 }
                 population = tempPopulation;
+                //Console.WriteLine("Функция пригодности: " + highestFitness + " Поколение: " + generation);
             }
         }
     }
