@@ -6,16 +6,28 @@ using System.Threading.Tasks;
 
 namespace GeneticAlg
 {
+    /// <summary>
+    /// Класс для восстановления строки с использованием генетического алгоритма.
+    /// </summary>
     internal class StringRebuider
     {
         private Random random = new Random();
         private Action<int, string, string> generationCallback;
 
+        /// <summary>
+        /// Инициализирует новый экземпляр класса StringRebuilder с указанным делегатом для вывода информации о поколении.
+        /// </summary>
+        /// <param name="generationCallback"> Делегат для вывода информации о поколении </param>
         public StringRebuider(Action<int, string, string> generationCallback)
         {
             this.generationCallback = generationCallback;
         }
 
+        /// <summary>
+        /// Генерирует случайную строку указанной длины из символов ASCII.
+        /// </summary>
+        /// <param name="length"> Длина строки </param>
+        /// <returns> Случайная строка указанной длины </returns>
         private string GenerateRandomString(int length)
         {
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -23,11 +35,23 @@ namespace GeneticAlg
               .Select(s => s[random.Next(s.Length)]).ToArray());
         }
 
+        /// <summary>
+        /// Оценивает фитнес индивида, измеряя схожесть строки с целевой строкой.
+        /// </summary>
+        /// <param name="individual"> Строка индивида </param>
+        /// <param name="target"> Целевая строка для сравнения </param>
+        /// <returns> Значение фитнеса, представляющее схожесть строки с целевой </returns>
         private int CalculateFitness(string individual, string target)
         {
             return individual.Zip(target, (a, b) => a == b ? 1 : 0).Sum();
         }
 
+        /// <summary>
+        /// Производит мутацию строки с заданной вероятностью мутации.
+        /// </summary>
+        /// <param name="individual"> Строка, подвергаемая мутации </param>
+        /// <param name="mutationRate"> Вероятность мутации для каждого символа в строке. Значение должно быть в пределах [0, 1] </param>
+        /// <returns> Мутированная строка </returns>
         private string Mutate(string individual, double mutationRate)
         {
             char[] mutated = individual.ToCharArray();
@@ -55,12 +79,24 @@ namespace GeneticAlg
             return new string(mutated);
         }
 
+        /// <summary>
+        /// Производит кроссовер двух родительских строк, создавая потомка
+        /// </summary>
+        /// <param name="parent1"> Первая родительская строка </param>
+        /// <param name="parent2"> Вторая родительская строка </param>
+        /// <returns> Потомок, полученный в результате кроссовера </returns>
         private string Crossover(string parent1, string parent2)
         {
             int crossoverPoint = random.Next(0, Math.Min(parent1.Length, parent2.Length));
             return parent1.Substring(0, crossoverPoint) + parent2.Substring(crossoverPoint);
         }
 
+        /// <summary>
+        /// Запускает генетический алгоритм для восстановления строки к целевой строке.
+        /// </summary>
+        /// <param name="target"> Целевая строка, к которой стремится алгоритм </param>
+        /// <param name="populationSize"> Размер популяции индивидов в каждом поколении </param>
+        /// <param name="mutationRate"> Вероятность мутации для каждого символа в гене. Значение должно быть в пределах [0, 1] </param>
         public void RunGeneticAlgorithm(string target, int populationSize, double mutationRate)
         {
             List<string> population = new List<string>();
