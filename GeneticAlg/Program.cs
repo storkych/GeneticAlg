@@ -6,6 +6,76 @@ namespace GeneticAlg
 {
     class Program
     {
+        /// ---------------------------------------------------- Часть задачи о рюкзаке, я спрячу это в класс
+        /// <summary>
+        ///  Константы для параметров генетического алгоритма.
+        /// </summary>
+        private const double CROSSOVERPROBABILITY = 0.8;
+        private const double MUTATIONPROBABILITY = 0.1;
+        private const int POPULATIONSIZE = 100;
+        private const int GENERATIONCOUNT = 500;
+
+        /// <summary>
+        /// Инициализация экземпляра MainAlgorithm с параметрами.
+        /// </summary>
+        private static readonly BackpackMainAlgorithm<int> Algorithm = new BackpackMainAlgorithm<int>(CROSSOVERPROBABILITY,
+            MUTATIONPROBABILITY, POPULATIONSIZE,
+            GENERATIONCOUNT, BackpackExtractItemsFromInt32Value.Sort, BackpackFitnessFunction.CalculateFitness,
+            BackpackBreeding.Crossover, BackpackBreeding.Mutation);
+
+        /// <summary>
+        /// Очистка списков предметов и имен.
+        /// </summary>
+        /// <param name="result"></param>
+        private static void ClearLists(BackpackGenome<int> result)
+        {
+            result.ItemsPicked.Clear();
+            BackpackExtractItemsFromInt32Value.Selection.Clear();
+            BackpackProblem.ListOfNames.Clear();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        private static void RunApplication(BackpackMainAlgorithm<int> a)
+        {
+            // Генерация случайных предметов.
+            BackpackProblem.GenerateRandomItems();
+            // Эволюция популяции.
+            BackpackGenome<int> Result = a.Evolve(BackpackProblem.GenerateRandomSolutions(POPULATIONSIZE));
+
+            // Вывод результатов в консоль.
+            Console.WriteLine("Выбранные предметы:");
+            Console.WriteLine();
+
+            foreach (BackpackItem t in Result.ItemsPicked)
+            {
+                Console.WriteLine(t.Name + "  " + "\t" + " (Ценность:" + t.Worth + ") " +
+                                  "\t" + "(Вес:" + t.Weight + ")");
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("Максимальный вес: " + BackpackFitnessFunction.MaxValue);
+            Console.WriteLine("Текущий вес: " + Result.ItemsPicked.Sum(t => t.Weight));
+            Console.WriteLine("Текущая ценность: " + Result.ItemsPicked.Sum(t => t.Worth));
+            Console.WriteLine();
+            Console.WriteLine("Вес всех предметов: " + BackpackExtractItemsFromInt32Value.Selection.Sum(t => t.Weight));
+            Console.WriteLine("Ценность всех предметов: " + BackpackExtractItemsFromInt32Value.Selection.Sum(t => t.Worth));
+            Console.ReadKey();
+
+            ClearLists(Result);
+            Console.Clear();
+
+            // Рекурсивный запуск приложения с новым экземпляром алгоритма.
+            RunApplication(new BackpackMainAlgorithm<int>(CROSSOVERPROBABILITY, MUTATIONPROBABILITY, POPULATIONSIZE,
+                GENERATIONCOUNT, BackpackExtractItemsFromInt32Value.Sort, BackpackFitnessFunction.CalculateFitness,
+                BackpackBreeding.Crossover, BackpackBreeding.Mutation));
+        }
+
+        /// ---------------------------------------------------- конец
+
+
         static int NumQueens;
 
         static void GenerationCallback(int generation, string bestIndividual, string target)
@@ -19,7 +89,7 @@ namespace GeneticAlg
             Console.WriteLine($"Вы выбрали: {index + 1}");
             if (index == 0)
             {
-                
+                RunApplication(Algorithm);
             }
             else if (index == 1)
             {
