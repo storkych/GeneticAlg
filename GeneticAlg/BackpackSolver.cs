@@ -8,6 +8,8 @@ namespace GeneticAlg
 {
     internal class BackpackSolver
     {
+        private Action<string> generationCallback;
+
         private const double CROSSOVERPROBABILITY = 0.8;
         private const double MUTATIONPROBABILITY = 0.1;
         private const int POPULATIONSIZE = 100;
@@ -39,9 +41,9 @@ namespace GeneticAlg
         private int[] _crossedGenomes = new int[2];
         private BackpackGenome _crossoverPartner;
 
-        public BackpackSolver()
+        public BackpackSolver(Action<string> generationCallback)
         {
-
+            this.generationCallback = generationCallback;
         }
 
         public void RunApplication()
@@ -52,30 +54,26 @@ namespace GeneticAlg
             BackpackGenome Result = Evolve(GenerateRandomSolutions(POPULATIONSIZE));
 
             // Вывод результатов в консоль.
-            Console.WriteLine("Выбранные предметы:");
-            Console.WriteLine();
+            generationCallback?.Invoke("Выбранные предметы:");
+            generationCallback?.Invoke("");
 
             foreach (BackpackItem t in Result.ItemsPicked)
             {
-                Console.WriteLine(t.Name + "  " + "\t" + " (Ценность:" + t.Worth + ") " +
+                generationCallback?.Invoke(t.Name + "  " + "\t" + " (Ценность:" + t.Worth + ") " +
                                   "\t" + "(Вес:" + t.Weight + ")");
             }
 
-            Console.WriteLine();
-            Console.WriteLine("Максимальный вес: " + MaxValue);
-            Console.WriteLine("Текущий вес: " + Result.ItemsPicked.Sum(t => t.Weight));
-            Console.WriteLine("Текущая ценность: " + Result.ItemsPicked.Sum(t => t.Worth));
-            Console.WriteLine();
-            Console.WriteLine("Вес всех предметов: " + Selection.Sum(t => t.Weight));
-            Console.WriteLine("Ценность всех предметов: " + Selection.Sum(t => t.Worth));
+            generationCallback?.Invoke("");
+            generationCallback?.Invoke("Максимальный вес: " + MaxValue);
+            generationCallback?.Invoke("Текущий вес: " + Result.ItemsPicked.Sum(t => t.Weight));
+            generationCallback?.Invoke("Текущая ценность: " + Result.ItemsPicked.Sum(t => t.Worth));
+            generationCallback?.Invoke("");
+            generationCallback?.Invoke("Вес всех предметов: " + Selection.Sum(t => t.Weight));
+            generationCallback?.Invoke("Ценность всех предметов: " + Selection.Sum(t => t.Worth));
             Console.ReadKey();
 
             ClearLists(Result);
             Console.Clear();
-
-            // Рекурсивный запуск приложения с новым экземпляром алгоритма.
-            //RunApplication(new BackpackSolver(CROSSOVERPROBABILITY, MUTATIONPROBABILITY, POPULATIONSIZE,
-            //    GENERATIONCOUNT));
         }
 
         /// <summary>

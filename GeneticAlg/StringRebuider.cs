@@ -12,13 +12,13 @@ namespace GeneticAlg
     internal class StringRebuider
     {
         private Random random = new Random();
-        private Action<int, string, string> generationCallback;
+        private Action<string> generationCallback;
 
         /// <summary>
         /// Инициализирует новый экземпляр класса StringRebuilder с указанным делегатом для вывода информации о поколении.
         /// </summary>
         /// <param name="generationCallback"> Делегат для вывода информации о поколении </param>
-        public StringRebuider(Action<int, string, string> generationCallback)
+        public StringRebuider(Action<string> generationCallback)
         {
             this.generationCallback = generationCallback;
         }
@@ -118,11 +118,11 @@ namespace GeneticAlg
 
                 var sortedPopulation = fitnessScores.OrderByDescending(t => t.Item2).ToList();
 
-                generationCallback?.Invoke(generation, sortedPopulation[0].Item1, target);
+                generationCallback?.Invoke($"Поколение {generation}: Лучшая особь - {sortedPopulation[0].Item1}, fitness - {sortedPopulation[0].Item2}");
 
                 if (sortedPopulation[0].Item2 == target.Length)
                 {
-                    Console.WriteLine("Target reached!");
+                    generationCallback?.Invoke("Цель достигнута!");
                     break;
                 }
 

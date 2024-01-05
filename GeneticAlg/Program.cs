@@ -9,18 +9,17 @@ namespace GeneticAlg
 
         static int NumQueens;
 
-        static void GenerationCallback(int generation, string bestIndividual, string target)
+        static void GenerationCallback(string target)
         {
-            Console.WriteLine($"Generation {generation}: Best fit - {bestIndividual.Length}, Best individual - {bestIndividual}");
+            Console.WriteLine(target);
         }
 
         static void ExecuteMenuItem(int index)
         {
             Console.Clear();
-            Console.WriteLine($"Вы выбрали: {index + 1}");
             if (index == 0)
             {
-                BackpackSolver solver = new BackpackSolver();
+                BackpackSolver solver = new BackpackSolver(GenerationCallback);
                 solver.RunApplication();
             }
             else if (index == 1)
