@@ -41,15 +41,15 @@ namespace GeneticAlg
         private int[] _crossedGenomes = new int[2];
         private BackpackGenome _crossoverPartner;
 
-        public BackpackSolver(Action<string> generationCallback)
+        public BackpackSolver(Action<string> generationCallback, List<BackpackItem> selection, int maxValue)
         {
             this.generationCallback = generationCallback;
+            Selection = selection;
+            MaxValue = maxValue;
         }
 
         public void RunApplication()
         {
-            // Генерация случайных предметов.
-            GenerateRandomItems();
             // Эволюция популяции.
             BackpackGenome Result = Evolve(GenerateRandomSolutions(POPULATIONSIZE));
 
@@ -226,7 +226,11 @@ namespace GeneticAlg
         {
             int temp = genom.Parameter;
 
-            for (var i = 0; i < 31; i++)
+            int topRange = 31;
+            if (Selection.Count < 31) { topRange = Selection.Count; }
+
+
+            for (var i = 0; i < topRange; i++)
             {
                 int check = temp & 1 << i;
                 if (check == (1 << i))
@@ -245,24 +249,6 @@ namespace GeneticAlg
                 temp.Add(new BackpackGenome(Rnd.Next(1, Int32.MaxValue))); //TODO
             }
             return temp;
-        }
-
-        public static void GenerateRandomItems()
-        {
-            // Генерация имен предметов.
-            for (var i = 0; i < NumberOfNames; i++)
-            {
-                ListOfNames.Add("Item_" + Rnd.Next(1, NumberOfNames));
-            }
-
-            // Генерация случайных параметров предметов и добавление в коллекцию.
-            for (var i = 0; i < 32; i++)
-            {
-                Selection.Add(new BackpackItem(Rnd.Next(1, 51), Rnd.Next(0, 101), ListOfNames[Rnd.Next(0, NumberOfNames - 1)]));
-
-            }
-            // Установка максимального веса для ограничения рюкзака.
-            MaxValue = (Selection.Sum(t => t.Weight) / 3);
         }
 
         private static void ClearLists(BackpackGenome result)

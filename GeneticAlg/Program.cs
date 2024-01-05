@@ -7,7 +7,45 @@ namespace GeneticAlg
     class Program
     {
 
-        static int NumQueens;
+        static int Quantity;
+        static int GetMinimumInteger(string prompt, int minimumValue)
+        {
+            int result;
+            bool isValid;
+
+            do
+            {
+                Console.Write(prompt);
+                isValid = int.TryParse(Console.ReadLine(), out result) && result >= minimumValue;
+
+                if (!isValid)
+                {
+                    Console.WriteLine($"Пожалуйста, введите целое число больше или равное {minimumValue}.");
+                }
+
+            } while (!isValid);
+
+            return result;
+        }
+
+        static string GetString(string prompt, Func<string, bool> validation)
+        {
+            string result;
+
+            do
+            {
+                Console.Write(prompt);
+                result = Console.ReadLine();
+
+                if (!validation(result))
+                {
+                    Console.WriteLine("Пожалуйста, введите корректное значение.");
+                }
+
+            } while (!validation(result));
+
+            return result;
+        }
 
         static void GenerationCallback(string target)
         {
@@ -19,7 +57,35 @@ namespace GeneticAlg
             Console.Clear();
             if (index == 0)
             {
-                BackpackSolver solver = new BackpackSolver(GenerationCallback);
+                // Ввод максимального веса в рюкзаке
+                int maxValue = GetMinimumInteger("Введите максимальный вес в рюкзаке (минимум 1): ", 1);
+
+                // Ввод количества предметов (не менее 5)
+                int itemCount = GetMinimumInteger("Введите количество предметов (минимум 5): ", 5);
+
+                // Создание списка для предметов
+                List<BackpackItem> itemList = new List<BackpackItem>();
+
+                // Ввод данных для каждого предмета
+                for (int i = 0; i < itemCount; i++)
+                {
+                    Console.WriteLine($"\nВведите данные для предмета {i + 1}:");
+
+                    // Ввод веса (больше 0)
+                    int weight = GetMinimumInteger("Вес предмета (больше 0): ", 1);
+
+                    // Ввод стоимости (больше 0)
+                    int worth = GetMinimumInteger("Стоимость предмета (больше 0): ", 1);
+
+                    // Ввод имени с проверкой на пустую строку
+                    string name = GetString("Имя предмета (не может быть пустым): ", s => !string.IsNullOrWhiteSpace(s));
+
+                    // Создание объекта BackpackItem и добавление его в список
+                    BackpackItem newItem = new BackpackItem(weight, worth, name);
+                    itemList.Add(newItem);
+                }
+
+                BackpackSolver solver = new BackpackSolver(GenerationCallback, itemList, maxValue);
                 solver.RunApplication();
             }
             else if (index == 1)
@@ -27,7 +93,7 @@ namespace GeneticAlg
                 while (true)
                 {
                     Console.WriteLine("Введите число королев(не менее 4): ");
-                    if (int.TryParse(Console.ReadLine(), out NumQueens) && (NumQueens > 3))
+                    if (int.TryParse(Console.ReadLine(), out Quantity) && (Quantity > 3))
                     {
                         Console.WriteLine("Запуск алгоритма");
                         break;
@@ -41,7 +107,7 @@ namespace GeneticAlg
                 //Stopwatch stopWatch = new();
                 //stopWatch.Start();
                 //Вызываем метод geneticAlg() для выполнения генетического алгоритма.
-                QueenBoards solution = QueenGenAlg.QueenGeneticAlg(NumQueens);
+                QueenBoards solution = QueenGenAlg.QueenGeneticAlg(Quantity);
                 //stopWatch.Stop();
                 //TimeSpan ts = stopWatch.Elapsed;
                 //Console.WriteLine($"Время работы алгоритма : {ts}");
