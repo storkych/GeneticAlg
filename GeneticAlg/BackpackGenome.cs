@@ -9,8 +9,7 @@ namespace GeneticAlg
     /// <summary>
     /// Класс, представляющий геном в генетическом алгоритме.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    internal class BackpackGenome<T>
+    internal class BackpackGenome
     {
         /// <summary>
         /// Значение приспособленности генома и список выбранных предметов.
@@ -21,13 +20,13 @@ namespace GeneticAlg
         /// <summary>
         /// Параметр генома.
         /// </summary>
-        public T Parameter;
+        public int Parameter;
 
         /// <summary>
         /// Конструктор класса, инициализирующий параметры генома.
         /// </summary>
         /// <param name="parameter"></param>
-        public BackpackGenome(T parameter)
+        public BackpackGenome(int parameter)
         {
             Parameter = parameter;
             Fitness = 0;
