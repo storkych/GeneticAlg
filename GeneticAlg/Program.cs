@@ -117,7 +117,7 @@ namespace GeneticAlg
                     List<BackpackItem> itemList = new();
 
                     // Ввод данных для каждого предмета
-                    for (int i = 0; i < itemCount; i++)
+                    for (var i = 0; i < itemCount; i++)
                     {
                         Console.WriteLine($"\nВведите данные для предмета {i + 1}:");
 
@@ -171,9 +171,9 @@ namespace GeneticAlg
                     double[,] distances = new double[numOfCities, numOfCities];
 
                     Console.WriteLine("Заполните матрицу расстояний: ");
-                    for (int i = 0; i < numOfCities; i++)
+                    for (var i = 0; i < numOfCities; i++)
                     {
-                        for (int j = 0; j < numOfCities; j++)
+                        for (var j = 0; j < numOfCities; j++)
                         {
                             while (!double.TryParse(Console.ReadLine(), out distances[i, j]) || distances[i, j] < 0)
                             {
@@ -183,9 +183,9 @@ namespace GeneticAlg
                     }
 
                     Console.WriteLine("Матрица расстояний: ");
-                    for (int i = 0; i < numOfCities; i++)
+                    for (var i = 0; i < numOfCities; i++)
                     {
-                        for (int j = 0; j < numOfCities; j++)
+                        for (var j = 0; j < numOfCities; j++)
                             Console.Write(string.Format("{0,3}", distances[i, j]));
                         Console.WriteLine();
                     }
@@ -211,7 +211,7 @@ namespace GeneticAlg
                     }
                     stopWatch.Start();
                     // Основной алгоритм.
-                    for (int generation = 0; generation < maxGenerations; generation++)
+                    for (var generation = 0; generation < maxGenerations; generation++)
                     {
                         // Вычисление приспособленности особей в текущей популяции.
                         Dictionary<List<int>, double> fitness = TravelingSalesman.CalculateFitness(population, distances);
@@ -303,7 +303,7 @@ namespace GeneticAlg
                 Console.Clear();
                 Console.WriteLine("Выберите пункт меню:");
 
-                for (int i = 0; i < menuItems.Length; i++)
+                for (var i = 0; i < menuItems.Length; i++)
                 {
                     if (i == selectedItemIndex)
                     {

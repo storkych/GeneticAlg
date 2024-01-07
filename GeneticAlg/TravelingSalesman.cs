@@ -18,14 +18,14 @@ namespace GeneticAlg
         {
             List<List<int>> population = new();
 
-            for (int i = 0; i < populationSize; i++)
+            for (var i = 0; i < populationSize; i++)
             {
                 // Начальная вершина - 0.
                 List<int> chromosome = new List<int> { 0 };
                 // Генерируем остальные вершины пути
                 List<int> chromosomeEnd = new();
                 chromosomeEnd = GenerateUniqueNumberList(numOfCities);
-                for (int j = 1; j < numOfCities; j++)
+                for (var j = 1; j < numOfCities; j++)
                 {
                     chromosome.Add(chromosomeEnd[j - 1]);
                 }
@@ -46,7 +46,7 @@ namespace GeneticAlg
             List<int> numbers = new();
 
             // Добавляем числа от 1 до n в список.
-            for (int i = 1; i < n; i++)
+            for (var i = 1; i < n; i++)
             {
                 numbers.Add(i);
             }
@@ -54,7 +54,7 @@ namespace GeneticAlg
             Random random = new();
 
             // Перетасовка элементов списка.
-            for (int i = 0; i < n - 1; i++)
+            for (var i = 0; i < n - 1; i++)
             {
                 // Берём рандомный элемент списка от i до n-1.
                 int randomIndex = random.Next(i, n - 1);
@@ -95,7 +95,7 @@ namespace GeneticAlg
         {
             double totalDistance = 0;
 
-            for (int i = 0; i < path.Count - 1; i++)
+            for (var i = 0; i < path.Count - 1; i++)
             {
                 totalDistance += distances[path[i], path[i + 1]];
             }
@@ -117,7 +117,7 @@ namespace GeneticAlg
             Random random = new();
 
             int randomIndex = random.Next(0, population.Count);
-            for (int j = 0; j < population.Count; j++)
+            for (var j = 0; j < population.Count; j++)
                 if (j == randomIndex)
                 {
                     selectedParents.Add(population[j]);
@@ -126,7 +126,7 @@ namespace GeneticAlg
 
             int randomIndex2 = random.Next(0, population.Count);
             while (randomIndex2 == randomIndex) randomIndex2 = random.Next(0, population.Count);
-            for (int j = 0; j < population.Count; j++)
+            for (var j = 0; j < population.Count; j++)
                 if (j == randomIndex2)
                 {
                     selectedParents.Add(population[j]);
@@ -157,7 +157,7 @@ namespace GeneticAlg
             // Потомк 2. Аналогично.
             List<int> offspring2 = parent2.GetRange(0, crossoverPoint);
             // Добавляем недостающие гены, которых ещё нет в потомке от второго родителя (по порядку).
-            for (int i = 0; i < parent2.Count; i++)
+            for (var i = 0; i < parent2.Count; i++)
             {
                 if (!offspring1.Contains(parent2[i]))
                 {
@@ -165,7 +165,7 @@ namespace GeneticAlg
                 }
             }
             // Добавляем недостающие гены, которых ещё нет в потомке от первого родителя (по порядку).
-            for (int i = 0; i < parent1.Count; i++)
+            for (var i = 0; i < parent1.Count; i++)
             {
                 if (!offspring2.Contains(parent1[i]))
                 {
@@ -183,7 +183,7 @@ namespace GeneticAlg
         public static void Mutate(List<List<int>> offspring)
         {
             Random random = new();
-            for (int i = 0; i < offspring.Count; i++)
+            for (var i = 0; i < offspring.Count; i++)
             {
                 // Возвращает случайное число с плавающей запятой, которое больше или равно 0,0, но меньше 1,0.
                 if (random.NextDouble() < 0.1)

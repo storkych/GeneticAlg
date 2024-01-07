@@ -60,7 +60,7 @@ namespace GeneticAlg
         private string Mutate(string individual, double MUTATION_RATE)
         {
             char[] mutated = individual.ToCharArray();
-            for (int i = 0; i < mutated.Length; i++)
+            for (var i = 0; i < mutated.Length; i++)
             {
                 if (random.NextDouble() < MUTATION_RATE)
                 {
@@ -105,7 +105,7 @@ namespace GeneticAlg
         public void RunGeneticAlgorithm()
         {
             List<string> population = new List<string>();
-            for (int i = 0; i < POPULATION_SIZE; i++)
+            for (var i = 0; i < POPULATION_SIZE; i++)
             {
                 population.Add(GenerateRandomString(target.Length));
             }
@@ -133,7 +133,7 @@ namespace GeneticAlg
 
                 List<string> newPopulation = new List<string>();
 
-                for (int i = 0; i < POPULATION_SIZE / 2; i++)
+                for (var i = 0; i < POPULATION_SIZE / 2; i++)
                 {
                     string parent1 = sortedPopulation[i].Item1;
                     string parent2 = sortedPopulation[i + 1].Item1;

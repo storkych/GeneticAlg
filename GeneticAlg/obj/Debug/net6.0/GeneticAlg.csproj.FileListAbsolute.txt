@@ -43,3 +43,17 @@ C:\Users\storkych\Documents\GitHub\GeneticAlg\GeneticAlg\bin\Debug\net6.0\Geneti
 C:\Users\storkych\Documents\GitHub\GeneticAlg\GeneticAlg\bin\Debug\net6.0\GeneticAlg.pdb
 C:\Users\storkych\Documents\GitHub\GeneticAlg\GeneticAlg\obj\Debug\net6.0\GeneticAlg.genruntimeconfig.cache
 C:\Users\storkych\Documents\GitHub\GeneticAlg\GeneticAlg\obj\Debug\net6.0\ref\GeneticAlg.dll
+D:\загрузки\гитхаб\GeneticAlg\GeneticAlg\bin\Debug\net6.0\GeneticAlg.exe
+D:\загрузки\гитхаб\GeneticAlg\GeneticAlg\bin\Debug\net6.0\GeneticAlg.deps.json
+D:\загрузки\гитхаб\GeneticAlg\GeneticAlg\bin\Debug\net6.0\GeneticAlg.runtimeconfig.json
+D:\загрузки\гитхаб\GeneticAlg\GeneticAlg\bin\Debug\net6.0\GeneticAlg.dll
+D:\загрузки\гитхаб\GeneticAlg\GeneticAlg\bin\Debug\net6.0\GeneticAlg.pdb
+D:\загрузки\гитхаб\GeneticAlg\GeneticAlg\obj\Debug\net6.0\GeneticAlg.GeneratedMSBuildEditorConfig.editorconfig
+D:\загрузки\гитхаб\GeneticAlg\GeneticAlg\obj\Debug\net6.0\GeneticAlg.AssemblyInfoInputs.cache
+D:\загрузки\гитхаб\GeneticAlg\GeneticAlg\obj\Debug\net6.0\GeneticAlg.AssemblyInfo.cs
+D:\загрузки\гитхаб\GeneticAlg\GeneticAlg\obj\Debug\net6.0\GeneticAlg.csproj.CoreCompileInputs.cache
+D:\загрузки\гитхаб\GeneticAlg\GeneticAlg\obj\Debug\net6.0\GeneticAlg.dll
+D:\загрузки\гитхаб\GeneticAlg\GeneticAlg\obj\Debug\net6.0\refint\GeneticAlg.dll
+D:\загрузки\гитхаб\GeneticAlg\GeneticAlg\obj\Debug\net6.0\GeneticAlg.pdb
+D:\загрузки\гитхаб\GeneticAlg\GeneticAlg\obj\Debug\net6.0\GeneticAlg.genruntimeconfig.cache
+D:\загрузки\гитхаб\GeneticAlg\GeneticAlg\obj\Debug\net6.0\ref\GeneticAlg.dll

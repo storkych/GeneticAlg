@@ -109,7 +109,7 @@ namespace GeneticAlg
         {
             string str = string.Empty;
 
-            for (int i = 0; i < Board.Length; i++)
+            for (var i = 0; i < Board.Length; i++)
             {
                 str += Board[i] + " ";
             }
@@ -124,9 +124,9 @@ namespace GeneticAlg
         public string PrintBoard()
         {
             string str = string.Empty;
-            for (int i = 0; i < Board.Length; i++)
+            for (var i = 0; i < Board.Length; i++)
             {
-                for (int j = 0; j < Board.Length; j++)
+                for (var j = 0; j < Board.Length; j++)
                 {
                     if (Board[j] == i + 1)
                     {

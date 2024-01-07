@@ -1,8 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "8zFW10kwgOiuz6RnHSvqEwF0mBEkRXXyK89qIMZQPkoPW5YDj33Qyirjx03/g8FhqY9Amx+RWbv9Fhuuo9Tfnw==",
+  "dgSpecHash": "W22cpP2SUcSZ9pZNfCsaeXXVTCam55kzeH6BGkD+IvVtI/vrSFUr4Q+RD5LxUrvLp4HcRKFDYCQkMUBGZV0BWg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\storkych\\Documents\\GitHub\\GeneticAlg\\GeneticAlg\\GeneticAlg.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "D:\\загрузки\\гитхаб\\GeneticAlg\\GeneticAlg\\GeneticAlg.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\julia\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.25\\microsoft.windowsdesktop.app.ref.6.0.25.nupkg.sha512",
+    "C:\\Users\\julia\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.25\\microsoft.netcore.app.ref.6.0.25.nupkg.sha512",
+    "C:\\Users\\julia\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.25\\microsoft.aspnetcore.app.ref.6.0.25.nupkg.sha512",
+    "C:\\Users\\julia\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.25\\microsoft.netcore.app.host.win-x64.6.0.25.nupkg.sha512"
+  ],
   "logs": []
 }
