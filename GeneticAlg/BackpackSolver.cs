@@ -8,7 +8,7 @@ namespace GeneticAlg
 {
     internal class BackpackSolver
     {
-        private Action<string> generationCallback;
+        private readonly Action<string> generationCallback;
 
         private const double CROSSOVERPROBABILITY = 0.8;
         private const double MUTATIONPROBABILITY = 0.1;
@@ -16,9 +16,9 @@ namespace GeneticAlg
         private const int GENERATIONCOUNT = 500;
         public static int MaxValue;
 
-        private static readonly Random Rnd = new Random();
+        private static readonly Random Rnd = new();
 
-        public static List<string> ListOfNames = new List<string>();
+        public static List<string> ListOfNames = new();
 
         /// <summary>
         /// Переменные для хранения точек скрещивания и потомков.
@@ -31,14 +31,14 @@ namespace GeneticAlg
         /// <summary>
         /// Список геномов следующего поколения, список текущих геномов.
         /// </summary>
-        private readonly List<BackpackGenome> NextGeneration = new List<BackpackGenome>();
-        private readonly List<BackpackGenome> Solutions = new List<BackpackGenome>();
+        private readonly List<BackpackGenome> NextGeneration = new();
+        private readonly List<BackpackGenome> Solutions = new();
 
-        public static List<BackpackItem> Selection = new List<BackpackItem>();
+        public static List<BackpackItem> Selection = new();
 
-        private BackpackGenome _bestFitness;
+        private BackpackGenome? _bestFitness;
         private int[] _crossedGenomes = new int[2];
-        private BackpackGenome _crossoverPartner;
+        private BackpackGenome? _crossoverPartner;
 
         public BackpackSolver(Action<string> generationCallback, List<BackpackItem> selection, int maxValue)
         {
@@ -83,7 +83,6 @@ namespace GeneticAlg
         public BackpackGenome Evolve(List<BackpackGenome> items)
         {
             Solutions.AddRange(items);
-
             for (var i = 0; i < GENERATIONCOUNT; i++)
             {
                 for (var k = 0; k < POPULATIONSIZE; k++)
@@ -92,7 +91,7 @@ namespace GeneticAlg
                     CalculateFitness(Solutions[k]);
                 }
 
-                Solutions.OrderByDescending(t => t.Fitness);
+                _ = Solutions.OrderByDescending(t => t.Fitness);
 
                 // Вычисление минимального значения приспособленности.
                 double minimalFitness = Solutions.Where(x => !x.Fitness.Equals(0)).Sum(t => t.Fitness) / POPULATIONSIZE -
@@ -199,8 +198,8 @@ namespace GeneticAlg
             _child2 = parent2.Parameter & temp;
 
             temp = Int32.MaxValue - temp;
-            _child1 = _child1 | (parent2.Parameter & temp);
-            _child2 = _child2 | (parent1.Parameter & temp);
+            _child1 |= (parent2.Parameter & temp);
+            _child2 |= (parent1.Parameter & temp);
 
             var crossedGenomes = new int[2];
             crossedGenomes[0] = _child1;

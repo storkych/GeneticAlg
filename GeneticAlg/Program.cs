@@ -67,7 +67,7 @@ namespace GeneticAlg
                     int itemCount = GetMinimumInteger("Введите количество предметов (минимум 5): ", 5);
 
                     // Создание списка для предметов
-                    List<BackpackItem> itemList = new List<BackpackItem>();
+                    List<BackpackItem> itemList = new();
 
                     // Ввод данных для каждого предмета
                     for (int i = 0; i < itemCount; i++)
@@ -81,14 +81,14 @@ namespace GeneticAlg
                         int worth = GetMinimumInteger("Стоимость предмета (больше 0): ", 1);
 
                         // Задаём имя предмета
-                        string name = "Item" + i.ToString();
+                        string name = "Item" + (i + 1).ToString();
 
                         // Создание объекта BackpackItem и добавление его в список
-                        BackpackItem newItem = new BackpackItem(weight, worth, name);
+                        BackpackItem newItem = new(weight, worth, name);
                         itemList.Add(newItem);
                     }
 
-                    BackpackSolver solver = new BackpackSolver(GenerationCallback, itemList, maxValue);
+                    BackpackSolver solver = new(GenerationCallback, itemList, maxValue);
                     stopWatch.Start();
                     solver.RunApplication();
                     break;
@@ -97,7 +97,7 @@ namespace GeneticAlg
                     int quantity = GetMinimumInteger("Введите число королев(не менее 4): ", 4);
 
                     stopWatch.Start();
-                    QueenGenAlg queenSolver = new QueenGenAlg(GenerationCallback);
+                    QueenGenAlg queenSolver = new(GenerationCallback);
 
                     QueenBoards solution = queenSolver.QueenGeneticAlg(quantity);
 
@@ -110,7 +110,7 @@ namespace GeneticAlg
                     int _populationSize = 100;
                     double mutationRate = 0.03;
 
-                    StringRebuider geneticAlgorithm = new StringRebuider(GenerationCallback);
+                    StringRebuider geneticAlgorithm = new(GenerationCallback);
                     stopWatch.Start();
                     geneticAlgorithm.RunGeneticAlgorithm(target, _populationSize, mutationRate);
                     break;
@@ -232,6 +232,9 @@ namespace GeneticAlg
                     Console.Write(TravelingSalesman.CalculateTotalDistance(population[0], distances));
                     break;
 
+                case MenuOption.Exit:
+                    Environment.Exit(0);
+                    break;
             }
             stopWatch.Stop();
             TimeSpan ts = stopWatch.Elapsed;
@@ -244,7 +247,7 @@ namespace GeneticAlg
         {
             Console.CursorVisible = false;
 
-            string[] menuItems = { "Задача о рюкзаке", "Расстановка ферзей", "Воссоздание строки", "Задача коммивояжера" };
+            string[] menuItems = { "Задача о рюкзаке", "Расстановка ферзей", "Воссоздание строки", "Задача коммивояжера", "Выход" };
             int selectedItemIndex = 0;
 
             while (true)

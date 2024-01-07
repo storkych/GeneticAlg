@@ -11,6 +11,7 @@ namespace GeneticAlg
         BackpackProblem = 0,
         QueenProblem = 1,
         StringRebuilder = 2,
-        TravellingSalesman = 3
+        TravellingSalesman = 3,
+        Exit = 4
     }
 }
