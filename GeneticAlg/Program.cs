@@ -154,7 +154,9 @@ namespace GeneticAlg
 
                 case MenuOption.StringRebuilder:
                     // Ввод целевой строки (не пустой)
-                    string target = GetString("Введите целевую строку (не может быть пустой): ", s => !string.IsNullOrWhiteSpace(s));
+                    string target = GetString("Введите целевую строку (не может быть пустой + только латиница): ", 
+                        s => !string.IsNullOrWhiteSpace(s) && 
+                        s.All(c => "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".Contains(c)));
 
                     IGeneticAlgorithm stringRebuider = new StringRebuider(GenerationCallback, target);
                     stopWatch.Start();

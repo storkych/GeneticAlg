@@ -12,8 +12,8 @@ namespace GeneticAlg
     internal class StringRebuider: IGeneticAlgorithm
     {
         private readonly Random random = new();
-        private Action<string> generationCallback;
-        private string target;
+        private readonly Action<string> generationCallback;
+        private readonly string target;
 
         private const int POPULATION_SIZE = 100;
         private const double MUTATION_RATE = 0.03;
