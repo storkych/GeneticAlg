@@ -174,6 +174,7 @@ namespace GeneticAlg
                     tempPopulation[i] = child;
                 }
                 population = tempPopulation;
+                generationCallback?.Invoke($"Функция пригодности: {highestFitness} Поколение: {generation}");
             }
         }
     }
