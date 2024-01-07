@@ -11,41 +11,71 @@ namespace GeneticAlg
         static int GetMinimumInteger(string prompt, int minimumValue)
         {
             int result;
-            bool isValid;
 
-            do
+            while (true)
             {
                 Console.Write(prompt);
-                isValid = int.TryParse(Console.ReadLine(), out result) && result >= minimumValue;
 
-                if (!isValid)
+                try
                 {
-                    Console.WriteLine($"Пожалуйста, введите целое число больше или равное {minimumValue}.");
-                }
+                    result = int.Parse(Console.ReadLine());
 
-            } while (!isValid);
+                    if (result >= minimumValue)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Пожалуйста, введите целое число больше или равное {minimumValue}.");
+                    }
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("Пожалуйста, введите целое число.");
+                }
+                catch (OverflowException)
+                {
+                    Console.WriteLine("Введенное число слишком большое или слишком маленькое.");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Произошла ошибка: {ex.Message}");
+                }
+            }
 
             return result;
         }
 
         static string GetString(string prompt, Func<string, bool> validation)
         {
-            string result;
+            string? result;
 
-            do
+            while (true)
             {
                 Console.Write(prompt);
-                result = Console.ReadLine();
 
-                if (!validation(result))
+                try
                 {
-                    Console.WriteLine("Пожалуйста, введите корректное значение.");
-                }
+                    result = Console.ReadLine();
 
-            } while (!validation(result));
+                    if (validation(result))
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Пожалуйста, введите корректное значение.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Произошла ошибка: {ex.Message}");
+                }
+            }
 
             return result;
         }
+
 
         static void GenerationCallback(string target)
         {
