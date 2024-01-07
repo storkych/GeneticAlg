@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace GeneticAlg
 {
+    /// <summary>
+    /// Интерфейс генетических алгоритмов
+    /// </summary>
     public interface IGeneticAlgorithm
     {
+        /// <summary>
+        /// Метод запуска генетического алгоритма
+        /// </summary>
         void RunGeneticAlgorithm();
     }
 }

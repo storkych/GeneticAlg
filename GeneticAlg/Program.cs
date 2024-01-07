@@ -7,7 +7,12 @@ namespace GeneticAlg
 {
     class Program
     {
-
+        /// <summary>
+        /// Метод для ввода целочисленного значения с нижним ограничением
+        /// </summary>
+        /// <param name="prompt"> Выводящийся промт </param>
+        /// <param name="minimumValue"> Минимальный порог для получаемого значения </param>
+        /// <returns></returns>
         static int GetMinimumInteger(string prompt, int minimumValue)
         {
             int result;
@@ -45,7 +50,12 @@ namespace GeneticAlg
 
             return result;
         }
-
+        /// <summary>
+        /// Метод ввода строки
+        /// </summary>
+        /// <param name="prompt"> Промт выводимый пользователю</param>
+        /// <param name="validation"> Функция валидации (требуемые условия для получаемой строки) </param>
+        /// <returns></returns>
         static string GetString(string prompt, Func<string, bool> validation)
         {
             string? result;
@@ -76,12 +86,19 @@ namespace GeneticAlg
             return result;
         }
 
-
+        /// <summary>
+        /// Метод для вывода строки в консоль, используем как делегат
+        /// </summary>
+        /// <param name="target"> Целевая строка </param>
         static void GenerationCallback(string target)
         {
             Console.WriteLine(target);
         }
 
+        /// <summary>
+        /// Метод для обработки действий в меню
+        /// </summary>
+        /// <param name="index"> Индекс выбранного пункта меню </param>
         static void ExecuteMenuItem(int index)
         {
             Stopwatch stopWatch = new();
@@ -136,7 +153,9 @@ namespace GeneticAlg
                     break;
 
                 case MenuOption.StringRebuilder:
+                    // Ввод целевой строки (не пустой)
                     string target = GetString("Введите целевую строку (не может быть пустой): ", s => !string.IsNullOrWhiteSpace(s));
+
                     IGeneticAlgorithm stringRebuider = new StringRebuider(GenerationCallback, target);
                     stopWatch.Start();
                     stringRebuider.RunGeneticAlgorithm();
