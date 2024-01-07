@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GeneticAlg
 {
-    internal class BackpackSolver
+    internal class BackpackSolver: IGeneticAlgorithm
     {
         private readonly Action<string> generationCallback;
 
@@ -47,7 +47,7 @@ namespace GeneticAlg
             MaxValue = maxValue;
         }
 
-        public void RunApplication()
+        public void RunGeneticAlgorithm()
         {
             // Эволюция популяции.
             BackpackGenome Result = Evolve(GenerateRandomSolutions(POPULATIONSIZE));

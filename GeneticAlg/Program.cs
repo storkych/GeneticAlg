@@ -118,9 +118,9 @@ namespace GeneticAlg
                         itemList.Add(newItem);
                     }
 
-                    BackpackSolver solver = new(GenerationCallback, itemList, maxValue);
+                    IGeneticAlgorithm backpackSolver = new BackpackSolver(GenerationCallback, itemList, maxValue);
                     stopWatch.Start();
-                    solver.RunApplication();
+                    backpackSolver.RunGeneticAlgorithm();
                     break;
 
                 case MenuOption.QueenProblem:
@@ -137,12 +137,9 @@ namespace GeneticAlg
 
                 case MenuOption.StringRebuilder:
                     string target = GetString("Введите целевую строку (не может быть пустой): ", s => !string.IsNullOrWhiteSpace(s));
-                    int _populationSize = 100;
-                    double mutationRate = 0.03;
-
-                    StringRebuider geneticAlgorithm = new(GenerationCallback);
+                    IGeneticAlgorithm stringRebuider = new StringRebuider(GenerationCallback, target);
                     stopWatch.Start();
-                    geneticAlgorithm.RunGeneticAlgorithm(target, _populationSize, mutationRate);
+                    stringRebuider.RunGeneticAlgorithm();
                     break;
 
                 case MenuOption.TravellingSalesman:

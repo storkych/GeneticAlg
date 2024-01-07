@@ -9,18 +9,23 @@ namespace GeneticAlg
     /// <summary>
     /// Класс для восстановления строки с использованием генетического алгоритма.
     /// </summary>
-    internal class StringRebuider
+    internal class StringRebuider: IGeneticAlgorithm
     {
-        private Random random = new Random();
+        private readonly Random random = new();
         private Action<string> generationCallback;
+        private string target;
+
+        private const int POPULATION_SIZE = 100;
+        private const double MUTATION_RATE = 0.03;
 
         /// <summary>
         /// Инициализирует новый экземпляр класса StringRebuilder с указанным делегатом для вывода информации о поколении.
         /// </summary>
         /// <param name="generationCallback"> Делегат для вывода информации о поколении </param>
-        public StringRebuider(Action<string> generationCallback)
+        public StringRebuider(Action<string> generationCallback, string _target)
         {
             this.generationCallback = generationCallback;
+            target = _target;
         }
 
         /// <summary>
@@ -50,14 +55,14 @@ namespace GeneticAlg
         /// Производит мутацию строки с заданной вероятностью мутации.
         /// </summary>
         /// <param name="individual"> Строка, подвергаемая мутации </param>
-        /// <param name="mutationRate"> Вероятность мутации для каждого символа в строке. Значение должно быть в пределах [0, 1] </param>
+        /// <param name="MUTATION_RATE"> Вероятность мутации для каждого символа в строке. Значение должно быть в пределах [0, 1] </param>
         /// <returns> Мутированная строка </returns>
-        private string Mutate(string individual, double mutationRate)
+        private string Mutate(string individual, double MUTATION_RATE)
         {
             char[] mutated = individual.ToCharArray();
             for (int i = 0; i < mutated.Length; i++)
             {
-                if (random.NextDouble() < mutationRate)
+                if (random.NextDouble() < MUTATION_RATE)
                 {
                     int mutationType = random.Next(3);
                     switch (mutationType)
@@ -95,12 +100,12 @@ namespace GeneticAlg
         /// Запускает генетический алгоритм для восстановления строки к целевой строке.
         /// </summary>
         /// <param name="target"> Целевая строка, к которой стремится алгоритм </param>
-        /// <param name="populationSize"> Размер популяции индивидов в каждом поколении </param>
-        /// <param name="mutationRate"> Вероятность мутации для каждого символа в гене. Значение должно быть в пределах [0, 1] </param>
-        public void RunGeneticAlgorithm(string target, int populationSize, double mutationRate)
+        /// <param name="POPULATION_SIZE"> Размер популяции индивидов в каждом поколении </param>
+        /// <param name="MUTATION_RATE"> Вероятность мутации для каждого символа в гене. Значение должно быть в пределах [0, 1] </param>
+        public void RunGeneticAlgorithm()
         {
             List<string> population = new List<string>();
-            for (int i = 0; i < populationSize; i++)
+            for (int i = 0; i < POPULATION_SIZE; i++)
             {
                 population.Add(GenerateRandomString(target.Length));
             }
@@ -128,7 +133,7 @@ namespace GeneticAlg
 
                 List<string> newPopulation = new List<string>();
 
-                for (int i = 0; i < populationSize / 2; i++)
+                for (int i = 0; i < POPULATION_SIZE / 2; i++)
                 {
                     string parent1 = sortedPopulation[i].Item1;
                     string parent2 = sortedPopulation[i + 1].Item1;
@@ -136,8 +141,8 @@ namespace GeneticAlg
                     string child1 = Crossover(parent1, parent2);
                     string child2 = Crossover(parent2, parent1);
 
-                    child1 = Mutate(child1, mutationRate);
-                    child2 = Mutate(child2, mutationRate);
+                    child1 = Mutate(child1, MUTATION_RATE);
+                    child2 = Mutate(child2, MUTATION_RATE);
 
                     newPopulation.Add(child1);
                     newPopulation.Add(child2);
