@@ -8,6 +8,9 @@ namespace GeneticAlg
 {
     internal class QueenGenAlg
     {
+
+        private Action<string> generationCallback;
+
         /// <summary>
         /// Количество ферзей на шахматной доске.
         /// </summary>
@@ -29,14 +32,13 @@ namespace GeneticAlg
         static QueenBoards[] population = new QueenBoards[popSize];
 
 
-
         /// <summary>
         /// Реализует одноточечное скрещивание двух родителей (parentX и parentY), чтобы создать потомка.
         /// </summary>
         /// <param name="parentX">Первый родитель.</param>
         /// <param name="parentY">Второй родитель.</param>
         /// <returns>Ребенок в результате скрещивания.</returns>
-        public static QueenBoards Crossover(QueenBoards parentX, QueenBoards parentY)
+        public QueenBoards Crossover(QueenBoards parentX, QueenBoards parentY)
         {
             QueenBoards child;
             Random r = new();
@@ -58,7 +60,7 @@ namespace GeneticAlg
         /// Создает начальную популяцию случайных досок размером popSize. 
         /// Случайная популяция состоит из расстановки ферзей, которые не бьют друг друга по столбцам и строкам.
         /// </summary>
-        public static void CreatePopulation()
+        public void CreatePopulation()
         {
             int[] initParent = new int[NumQueens];
             Random r = new();
@@ -96,7 +98,7 @@ namespace GeneticAlg
         ///  Выбирает случайным образом родителя из совокупности по уровню пригодности.
         /// </summary>
         /// <returns>Родитель</returns>
-        public static QueenBoards ChooseParent()
+        public QueenBoards ChooseParent()
         {
             Random r = new();
             // Общая пригодность.
@@ -119,11 +121,18 @@ namespace GeneticAlg
             return null;
         }
 
+        public QueenGenAlg(Action<string> generationCallback)
+        {
+            this.generationCallback = generationCallback;
+        }
+
+
+
         /// <summary>
         /// Выполняет генетический алгоритм.
         /// </summary>
         /// <returns>Дочерний элемент, содержащий допустимое решение.</returns>
-        public static QueenBoards QueenGeneticAlg(int tarNumQeens)
+        public QueenBoards QueenGeneticAlg(int tarNumQeens)
         {
             NumQueens = tarNumQeens;
             //Дочерний элемент, содержащий допустимое решение.
@@ -149,7 +158,7 @@ namespace GeneticAlg
                     // Проверяем, является ли child решением.
                     if (child.Solved())
                     {
-                        Console.WriteLine("Функция пригодности: " + child.Fitness + " Поколение: " + generation);
+                        generationCallback?.Invoke($"Функция пригодности: {child.Fitness} Поколение: {generation}");
                         return child;
                     }
                     // Изменяем мутацию.
@@ -165,7 +174,6 @@ namespace GeneticAlg
                     tempPopulation[i] = child;
                 }
                 population = tempPopulation;
-                //Console.WriteLine("Функция пригодности: " + highestFitness + " Поколение: " + generation);
             }
         }
     }

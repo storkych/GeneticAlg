@@ -19,7 +19,6 @@ namespace GeneticAlg
         private static readonly Random Rnd = new Random();
 
         public static List<string> ListOfNames = new List<string>();
-        public static int NumberOfNames = 1000;
 
         /// <summary>
         /// Переменные для хранения точек скрещивания и потомков.
@@ -193,7 +192,7 @@ namespace GeneticAlg
         /// <returns></returns>
         public static int[] Crossover(BackpackGenome parent1, BackpackGenome parent2)
         {
-            _crossPoint = Rnd.Next(1, 32);
+            _crossPoint = Rnd.Next(1, Selection.Count);
 
             int temp = (1 << _crossPoint) - 1;
             _child1 = parent1.Parameter & temp;
@@ -216,7 +215,7 @@ namespace GeneticAlg
         /// <returns></returns>
         public static int Mutation(BackpackGenome genom)
         {
-            _mutatePoint = Rnd.Next(0, 31);
+            _mutatePoint = Rnd.Next(0, Selection.Count);
             int temp = (1 << _mutatePoint);
             _child1 = genom.Parameter ^ temp;
             return _child1;
@@ -226,11 +225,7 @@ namespace GeneticAlg
         {
             int temp = genom.Parameter;
 
-            int topRange = 31;
-            if (Selection.Count < 31) { topRange = Selection.Count; }
-
-
-            for (var i = 0; i < topRange; i++)
+            for (var i = 0; i < Selection.Count; i++)
             {
                 int check = temp & 1 << i;
                 if (check == (1 << i))
