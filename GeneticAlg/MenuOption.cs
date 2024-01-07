@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace GeneticAlg
 {
+    /// <summary>
+    /// Перечисление для состояний меню.
+    /// </summary>
     public enum MenuOption
     {
         BackpackProblem = 0,

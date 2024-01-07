@@ -96,7 +96,7 @@ namespace GeneticAlg
         }
 
         /// <summary>
-        /// Метод для обработки действий в меню
+        /// Метод для обработки действий в меню.
         /// </summary>
         /// <param name="index"> Индекс выбранного пункта меню </param>
         static void ExecuteMenuItem(int index)
@@ -107,34 +107,34 @@ namespace GeneticAlg
             switch ((MenuOption)index)
             {
                 case MenuOption.BackpackProblem:
-                    // Ввод максимального веса в рюкзаке
+                    // Ввод максимального веса в рюкзаке.
                     int maxValue = GetMinimumInteger("Введите максимальный вес в рюкзаке (минимум 1): ", 1);
 
-                    // Ввод количества предметов (не менее 5)
+                    // Ввод количества предметов (не менее 5).
                     int itemCount = GetMinimumInteger("Введите количество предметов (минимум 5): ", 5);
 
-                    // Создание списка для предметов
+                    // Создание списка для предметов.
                     List<BackpackItem> itemList = new();
 
-                    // Ввод данных для каждого предмета
+                    // Ввод данных для каждого предмета.
                     for (var i = 0; i < itemCount; i++)
                     {
                         Console.WriteLine($"\nВведите данные для предмета {i + 1}:");
 
-                        // Ввод веса (больше 0)
+                        // Ввод веса (больше 0).
                         int weight = GetMinimumInteger("Вес предмета (больше 0): ", 1);
 
-                        // Ввод стоимости (больше 0)
+                        // Ввод стоимости (больше 0).
                         int worth = GetMinimumInteger("Стоимость предмета (больше 0): ", 1);
 
-                        // Задаём имя предмета
+                        // Задаём имя предмета/
                         string name = "Item" + (i + 1).ToString();
 
-                        // Создание объекта BackpackItem и добавление его в список
+                        // Создание объекта BackpackItem и добавление его в список/
                         BackpackItem newItem = new(weight, worth, name);
                         itemList.Add(newItem);
                     }
-
+               
                     IGeneticAlgorithm backpackSolver = new BackpackSolver(GenerationCallback, itemList, maxValue);
                     stopWatch.Start();
                     backpackSolver.RunGeneticAlgorithm();
@@ -291,6 +291,9 @@ namespace GeneticAlg
             Console.ReadKey();
         }
 
+        /// <summary>
+        /// Запуск программы.
+        /// </summary>
         static void Main()
         {
             Console.CursorVisible = false;

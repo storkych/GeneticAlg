@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace GeneticAlg
 {
+    /// <summary>
+    /// Генетический алгоритм для решения задачи о рюкзаке.
+    /// </summary>
     internal class BackpackSolver: IGeneticAlgorithm
     {
+        /// <summary>
+        /// Делегат для обратной связи в процессе генетического алгоритма.
+        /// </summary>
         private readonly Action<string> generationCallback;
 
         private const double CROSSOVERPROBABILITY = 0.8;
@@ -18,6 +24,9 @@ namespace GeneticAlg
 
         private static readonly Random Rnd = new();
 
+        /// <summary>
+        /// Список имен предметов.
+        /// </summary>
         public static List<string> ListOfNames = new();
 
         /// <summary>
@@ -47,6 +56,9 @@ namespace GeneticAlg
             MaxValue = maxValue;
         }
 
+        /// <summary>
+        /// Запускает генетический алгоритм для решения задачи о рюкзаке.
+        /// </summary>
         public void RunGeneticAlgorithm()
         {
             // Эволюция популяции.
@@ -220,6 +232,10 @@ namespace GeneticAlg
             return _child1;
         }
 
+        /// <summary>
+        /// Сортирует предметы в рюкзаке по порядку выбора.
+        /// </summary>
+        /// <param name="genom">Геном с информацией о выбранных предметах.</param>
         public static void Sort(BackpackGenome genom)
         {
             int temp = genom.Parameter;
@@ -234,6 +250,11 @@ namespace GeneticAlg
             }
         }
 
+        /// <summary>
+        /// Генерирует случайные геномы для начальной популяции.
+        /// </summary>
+        /// <param name="populationSize">Размер популяции.</param>
+        /// <returns>Список сгенерированных геномов.</returns>
         public static List<BackpackGenome> GenerateRandomSolutions(int populationSize)
         {
             var temp = new List<BackpackGenome>();
@@ -245,6 +266,10 @@ namespace GeneticAlg
             return temp;
         }
 
+        /// <summary>
+        /// Очистка списка.
+        /// </summary>
+        /// <param name="result">Результат работы алгоритма.</param>
         private static void ClearLists(BackpackGenome result)
         {
             result.ItemsPicked.Clear();
