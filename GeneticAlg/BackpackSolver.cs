@@ -78,10 +78,6 @@ namespace GeneticAlg
             generationCallback?.Invoke("");
             generationCallback?.Invoke("Вес всех предметов: " + Selection.Sum(t => t.Weight));
             generationCallback?.Invoke("Ценность всех предметов: " + Selection.Sum(t => t.Worth));
-            Console.ReadKey();
-
-            ClearLists(Result);
-            Console.Clear();
         }
 
         /// <summary>
@@ -278,27 +274,33 @@ namespace GeneticAlg
         {
             var temp = new List<BackpackGenome>();
             int maxParameter = (1 << Selection.Count) - 1;
+            int maxAttempts = 1000; // Максимальное количество попыток
 
             for (var i = 0; i < populationSize; i++)
             {
                 int randomParameter = 0;
                 int remainingWeight = MaxValue;
+                int attempts = 0;
 
-                while (remainingWeight > 0)
+                // Цикл продолжается до выбора всех предметов или достижения максимального числа попыток
+                while (randomParameter != maxParameter && attempts < maxAttempts)
                 {
                     int randomIndex = Rnd.Next(0, Selection.Count);
                     int bit = 1 << randomIndex;
 
                     if ((randomParameter & bit) == 0)
                     {
-                        // Проверка, чтобы не добавить один предмет несколько раз
                         int itemWeight = Selection[randomIndex].Weight;
+
+                        // Проверяем, чтобы не добавить предмет, если не хватает места
                         if (remainingWeight >= itemWeight)
                         {
                             randomParameter |= bit;
                             remainingWeight -= itemWeight;
                         }
                     }
+
+                    attempts++;
                 }
 
                 temp.Add(new BackpackGenome(randomParameter));
@@ -306,6 +308,7 @@ namespace GeneticAlg
 
             return temp;
         }
+
 
 
         /// <summary>
