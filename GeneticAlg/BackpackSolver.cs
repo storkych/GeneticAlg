@@ -17,17 +17,14 @@ namespace GeneticAlg
         private readonly Action<string> generationCallback;
 
         private const double CROSSOVERPROBABILITY = 0.8;
-        private const double MUTATIONPROBABILITY = 0.1;
+        private const double MUTATIONPROBABILITY = 0.03;
         private const int POPULATIONSIZE = 100;
         private const int GENERATIONCOUNT = 500;
         public static int MaxValue;
 
         private static readonly Random Rnd = new();
 
-        /// <summary>
-        /// Список имен предметов.
-        /// </summary>
-        public static List<string> ListOfNames = new();
+
 
         /// <summary>
         /// Переменные для хранения точек скрещивания и потомков.
@@ -126,9 +123,13 @@ namespace GeneticAlg
                                 {
                                     _crossedGenomes = Crossover(_crossoverPartner, Solutions[m]);
 
-                                    NextGeneration.Add(new BackpackGenome(_crossedGenomes[0]));
-                                    NextGeneration.Add(new BackpackGenome(_crossedGenomes[1]));
-                                    _crossoverPartner = null;
+                                    foreach (var genome in _crossedGenomes.Select(child => new BackpackGenome(child)))
+                                    {
+                                        if (GetWeight(genome.Parameter) <= MaxValue)
+                                        {
+                                            NextGeneration.Add(genome);
+                                        }
+                                    }
                                 }
                             }
 
@@ -174,19 +175,15 @@ namespace GeneticAlg
         /// <param name="genom"></param>
         public static void CalculateFitness(BackpackGenome genom)
         {
-            // Если вес выбранных предметов превышает 10% от максимального значения, приспособленность устанавливается в 0.
-            if (genom.ItemsPicked.Sum(t => t.Weight) >= MaxValue * 1.1f)
-            {
-                genom.Fitness = 0;
-                return;
-            }
+
 
             // Суммирование ценности выбранных предметов.
             genom.Fitness += genom.ItemsPicked.Sum(t => t.Worth);
 
             // Рассчет штрафа за превышение максимального веса с использованием квадратичной функции.
             float x = genom.ItemsPicked.Sum(t => t.Weight) - MaxValue;
-            genom.Fitness += (-((0.5f * x * x) + (5 * x)));
+            genom.Fitness += (-((x * x) + (10 * x))); // Изменяем формулу для более сильного штрафа
+
 
             // Если приспособленность меньше 1, устанавливаем ее в 1.
             if (genom.Fitness < 1)
@@ -213,11 +210,18 @@ namespace GeneticAlg
             _child1 |= (parent2.Parameter & temp);
             _child2 |= (parent1.Parameter & temp);
 
+            // Повторяем кроссовер, если оба потомка равны 0
+            if (_child1 == 0 && _child2 == 0)
+            {
+                return Crossover(parent1, parent2);
+            }
+
             var crossedGenomes = new int[2];
             crossedGenomes[0] = _child1;
             crossedGenomes[1] = _child2;
             return crossedGenomes;
         }
+
 
         /// <summary>
         /// Генетическая мутация.
@@ -226,11 +230,26 @@ namespace GeneticAlg
         /// <returns></returns>
         public static int Mutation(BackpackGenome genom)
         {
-            _mutatePoint = Rnd.Next(0, Selection.Count);
+            _mutatePoint = Rnd.Next(0, 31);
             int temp = (1 << _mutatePoint);
-            _child1 = genom.Parameter ^ temp;
-            return _child1;
+            if (GetWeight(genom.Parameter ^ temp) <= MaxValue)
+            {
+                return genom.Parameter ^ temp;
+            }
+            else
+            {
+                return genom.Parameter;
+            }
         }
+
+        public static int GetWeight(int parameter)
+        {
+            int bitCount = sizeof(int) * 8; // Получаем количество битов в int
+            return Enumerable.Range(0, bitCount)
+                .Where(i => (parameter & (1 << i)) != 0 && i < Selection.Count) // Добавляем проверку на допустимый диапазон
+                .Sum(i => Selection[i].Weight);
+        }
+
 
         /// <summary>
         /// Сортирует предметы в рюкзаке по порядку выбора.
@@ -258,13 +277,36 @@ namespace GeneticAlg
         public static List<BackpackGenome> GenerateRandomSolutions(int populationSize)
         {
             var temp = new List<BackpackGenome>();
+            int maxParameter = (1 << Selection.Count) - 1;
+
             for (var i = 0; i < populationSize; i++)
             {
-                // Создание генома с случайным параметром.
-                temp.Add(new BackpackGenome(Rnd.Next(1, Int32.MaxValue))); //TODO
+                int randomParameter = 0;
+                int remainingWeight = MaxValue;
+
+                while (remainingWeight > 0)
+                {
+                    int randomIndex = Rnd.Next(0, Selection.Count);
+                    int bit = 1 << randomIndex;
+
+                    if ((randomParameter & bit) == 0)
+                    {
+                        // Проверка, чтобы не добавить один предмет несколько раз
+                        int itemWeight = Selection[randomIndex].Weight;
+                        if (remainingWeight >= itemWeight)
+                        {
+                            randomParameter |= bit;
+                            remainingWeight -= itemWeight;
+                        }
+                    }
+                }
+
+                temp.Add(new BackpackGenome(randomParameter));
             }
+
             return temp;
         }
+
 
         /// <summary>
         /// Очистка списка.
@@ -274,7 +316,7 @@ namespace GeneticAlg
         {
             result.ItemsPicked.Clear();
             Selection.Clear();
-            ListOfNames.Clear();
+
         }
     }
 }
