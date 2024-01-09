@@ -175,7 +175,7 @@ namespace GeneticAlg
                     {
                         for (var j = 0; j < numOfCities; j++)
                         {
-                            while (!double.TryParse(Console.ReadLine(), out distances[i, j]) || distances[i, j] < 0)
+                            while (!double.TryParse(Console.ReadLine(), out distances[i, j]) || distances[i, j] <= 0)
                             {
                                 Console.Write("Неправильный ввод данных. Попробуйте ещё раз: ");
                             }
@@ -277,7 +277,7 @@ namespace GeneticAlg
                     }
                     Console.WriteLine(" ");
                     Console.Write("Расстояние: ");
-                    Console.Write(TravelingSalesman.CalculateTotalDistance(population[0], distances));
+                    Console.WriteLine(TravelingSalesman.CalculateTotalDistance(population[0], distances));
                     break;
 
                 case MenuOption.Exit:
