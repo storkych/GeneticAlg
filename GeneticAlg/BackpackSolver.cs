@@ -166,14 +166,14 @@ namespace GeneticAlg
                     _bestFitness = Solutions[0];
                 }
                 // Удаление геномов, которые участвовали в операции кроссовера или мутации.
-                Solutions.RemoveAll(t => t.Parameter != null);
+                Solutions.RemoveAll(t => t.Parameter != 0);
                 // Добавление следующего поколения к текущему.
                 Solutions.AddRange(NextGeneration);
                 // Очистка следующего поколения от геномов, которые могли остаться.
-                NextGeneration.RemoveAll(t => t.Parameter != null);
+                NextGeneration.RemoveAll(t => t.Parameter != 0);
             }
             // Возвращение лучшего генома, полученного в результате эволюции.
-            return _bestFitness;
+            return _bestFitness!;
         }
 
         /// <summary>

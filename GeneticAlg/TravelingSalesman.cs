@@ -21,10 +21,9 @@ namespace GeneticAlg
             for (var i = 0; i < populationSize; i++)
             {
                 // Начальная вершина - 0.
-                List<int> chromosome = new List<int> { 0 };
+                List<int> chromosome = new() { 0 };
                 // Генерируем остальные вершины пути
-                List<int> chromosomeEnd = new();
-                chromosomeEnd = GenerateUniqueNumberList(numOfCities);
+                List<int> chromosomeEnd = GenerateUniqueNumberList(numOfCities);
                 for (var j = 1; j < numOfCities; j++)
                 {
                     chromosome.Add(chromosomeEnd[j - 1]);
@@ -111,7 +110,7 @@ namespace GeneticAlg
         /// <param name="population">Популяция.</param>
         /// <param name="fitness">Словарь, где ключ - это особь (маршрут), значение - дистанция для этой особи (маршрута).</param>
         /// <returns>Список родителей.</returns>
-        public static List<List<int>> SelectParents(List<List<int>> population, Dictionary<List<int>, double> fitness)
+        public static List<List<int>> SelectParents(List<List<int>> population)
         {
             List<List<int>> selectedParents = new();
             Random random = new();

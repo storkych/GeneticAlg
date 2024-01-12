@@ -9,7 +9,7 @@ namespace GeneticAlg
     internal class QueenGenAlg
     {
 
-        private Action<string> generationCallback;
+        private readonly Action<string> generationCallback;
 
         /// <summary>
         /// Количество ферзей на шахматной доске.
@@ -38,7 +38,7 @@ namespace GeneticAlg
         /// <param name="parentX">Первый родитель.</param>
         /// <param name="parentY">Второй родитель.</param>
         /// <returns>Ребенок в результате скрещивания.</returns>
-        public QueenBoards Crossover(QueenBoards parentX, QueenBoards parentY)
+        public static QueenBoards Crossover(QueenBoards parentX, QueenBoards parentY)
         {
             QueenBoards child;
             Random r = new();
@@ -60,7 +60,7 @@ namespace GeneticAlg
         /// Создает начальную популяцию случайных досок размером popSize. 
         /// Случайная популяция состоит из расстановки ферзей, которые не бьют друг друга по столбцам и строкам.
         /// </summary>
-        public void CreatePopulation()
+        public static void CreatePopulation()
         {
             int[] initParent = new int[NumQueens];
             Random r = new();
@@ -98,7 +98,7 @@ namespace GeneticAlg
         ///  Выбирает случайным образом родителя из совокупности по уровню пригодности.
         /// </summary>
         /// <returns>Родитель</returns>
-        public QueenBoards ChooseParent()
+        public static QueenBoards? ChooseParent()
         {
             Random r = new();
             // Общая пригодность.
@@ -154,7 +154,7 @@ namespace GeneticAlg
                 for (var i = 0; i < popSize; i++)
                 {
                     // CВыбираем двух родителей и создаём ребенка. Пока выбор любой.
-                    child = Crossover(ChooseParent(), ChooseParent());
+                    child = Crossover(ChooseParent()!, ChooseParent()!);
                     // Проверяем, является ли child решением.
                     if (child.Solved())
                     {

@@ -20,10 +20,18 @@ namespace GeneticAlg
             while (true)
             {
                 Console.Write(prompt);
+                string? input = Console.ReadLine();
+
+                if (input == null)
+                {
+                    // Обработка ситуации, когда ReadLine возвращает null (например, при завершении работы программы)
+                    Console.WriteLine("Произошла ошибка при чтении ввода.");
+                    continue;
+                }
 
                 try
                 {
-                    result = int.Parse(Console.ReadLine());
+                    result = int.Parse(input);
 
                     if (result >= minimumValue)
                     {
@@ -67,7 +75,7 @@ namespace GeneticAlg
                 {
                     result = Console.ReadLine();
 
-                    if (validation(result))
+                    if (validation(result!))
                     {
                         break;
                     }
@@ -81,7 +89,7 @@ namespace GeneticAlg
                     Console.WriteLine($"Произошла ошибка: {ex.Message}");
                 }
             }
-            return result;
+            return result!;
         }
 
         /// <summary>
@@ -215,7 +223,7 @@ namespace GeneticAlg
                         Dictionary<List<int>, double> fitness = TravelingSalesman.CalculateFitness(population, distances);
 
                         // Выбор рандомных особей для скрещивания.
-                        List<List<int>> selectedParents = TravelingSalesman.SelectParents(population, fitness);
+                        List<List<int>> selectedParents = TravelingSalesman.SelectParents(population);
 
                         Console.WriteLine("Выбранные родители: ");
                         foreach (List<int> list in selectedParents)

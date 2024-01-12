@@ -8,4 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = GeneticAlg
-build_property.ProjectDir = D:\загрузки\гитхаб\GeneticAlg\GeneticAlg\
+build_property.ProjectDir = C:\Users\storkych\Documents\GitHub\GeneticAlg\GeneticAlg\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 

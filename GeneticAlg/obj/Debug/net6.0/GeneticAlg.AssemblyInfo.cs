@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GeneticAlg")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bdc94213d2cb67178368bb36f1d4ec20fb15c01f")]
 [assembly: System.Reflection.AssemblyProductAttribute("GeneticAlg")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GeneticAlg")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

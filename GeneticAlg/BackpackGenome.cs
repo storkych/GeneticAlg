@@ -15,7 +15,7 @@ namespace GeneticAlg
         /// Значение приспособленности генома и список выбранных предметов.
         /// </summary>
         public float Fitness;
-        public List<BackpackItem> ItemsPicked = new List<BackpackItem>();
+        public List<BackpackItem> ItemsPicked = new();
 
         /// <summary>
         /// Параметр генома.

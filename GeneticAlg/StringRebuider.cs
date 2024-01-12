@@ -46,7 +46,7 @@ namespace GeneticAlg
         /// <param name="individual"> Строка индивида </param>
         /// <param name="target"> Целевая строка для сравнения </param>
         /// <returns> Значение фитнеса, представляющее схожесть строки с целевой </returns>
-        private int CalculateFitness(string individual, string target)
+        private static int CalculateFitness(string individual, string target)
         {
             return individual.Zip(target, (a, b) => a == b ? 1 : 0).Sum();
         }
@@ -93,7 +93,7 @@ namespace GeneticAlg
         private string Crossover(string parent1, string parent2)
         {
             int crossoverPoint = random.Next(0, Math.Min(parent1.Length, parent2.Length));
-            return parent1.Substring(0, crossoverPoint) + parent2.Substring(crossoverPoint);
+            return string.Concat(parent1.AsSpan(0, crossoverPoint), parent2.AsSpan(crossoverPoint));
         }
 
         /// <summary>
@@ -104,7 +104,7 @@ namespace GeneticAlg
         /// <param name="MUTATION_RATE"> Вероятность мутации для каждого символа в гене. Значение должно быть в пределах [0, 1] </param>
         public void RunGeneticAlgorithm()
         {
-            List<string> population = new List<string>();
+            List<string> population = new();
             for (var i = 0; i < POPULATION_SIZE; i++)
             {
                 population.Add(GenerateRandomString(target.Length));
@@ -114,7 +114,7 @@ namespace GeneticAlg
 
             while (true)
             {
-                List<Tuple<string, int>> fitnessScores = new List<Tuple<string, int>>();
+                List<Tuple<string, int>> fitnessScores = new();
                 foreach (string individual in population)
                 {
                     int fitness = CalculateFitness(individual, target);
@@ -131,7 +131,7 @@ namespace GeneticAlg
                     break;
                 }
 
-                List<string> newPopulation = new List<string>();
+                List<string> newPopulation = new();
 
                 for (var i = 0; i < POPULATION_SIZE / 2; i++)
                 {
