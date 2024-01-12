@@ -47,7 +47,6 @@ namespace GeneticAlg
                     Console.WriteLine($"Произошла ошибка: {ex.Message}");
                 }
             }
-
             return result;
         }
         /// <summary>
@@ -82,7 +81,6 @@ namespace GeneticAlg
                     Console.WriteLine($"Произошла ошибка: {ex.Message}");
                 }
             }
-
             return result;
         }
 
@@ -127,10 +125,10 @@ namespace GeneticAlg
                         // Ввод стоимости (больше 0).
                         int worth = GetMinimumInteger("Стоимость предмета (больше 0): ", 1);
 
-                        // Задаём имя предмета/
+                        // Задаём имя предмета.
                         string name = "Item" + (i + 1).ToString();
 
-                        // Создание объекта BackpackItem и добавление его в список/
+                        // Создание объекта BackpackItem и добавление его в список.
                         BackpackItem newItem = new(weight, worth, name);
                         itemList.Add(newItem);
                     }
